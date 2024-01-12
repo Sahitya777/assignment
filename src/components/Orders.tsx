@@ -22,6 +22,102 @@ const Orders = () => {
             "Prize": 1236
         }
     ])
+    const makePayment = async () => {
+        //console.log("here...");
+        const res = await initializeRazorpay();
+        if (!res) {
+          alert("Razorpay SDK Failed to load");
+          return;
+        }
+        // Make API call to the serverless API
+        const data = await fetch("/api/razorpay",
+        {
+             method: "POST",
+             headers: {
+                'Content-Type': 'application/json',
+            },
+             body: JSON.stringify({
+                taxAmt:100
+             })
+         }
+        )
+        .then((t) =>
+          t.json()
+        );
+        const options = {
+            key: process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID,
+            name: "mmantratech",
+            currency: data.currency,
+            amount: data.amount,
+            order_id: data.id,
+            description: "Understanding RazorPay Integration",
+            // image: logoBase64,
+            handler: async function (response:any) {
+              // if (response.length==0) return <Loading/>;
+              console.log(response);
+      
+              const data = await fetch("/api/paymentverify", {
+                method: "POST",
+                // headers: {
+                //   // Authorization: 'YOUR_AUTH_HERE'
+                // },
+                body: JSON.stringify({
+                  razorpay_payment_id: response.razorpay_payment_id,
+                  razorpay_order_id: response.razorpay_order_id,
+                  razorpay_signature: response.razorpay_signature,
+                }),
+              });
+      
+      
+      
+              const res = await data.json();
+      
+              console.log("response verify==",res)
+      
+              if(res?.message=="success")
+              {
+      
+      
+                console.log("redirected.......")
+                // router.push("/paymentsuccess?paymentid="+response.razorpay_payment_id)
+      
+              }
+      
+              // Validate payment at server - using webhooks is a better idea.
+              // alert(response.razorpay_payment_id);
+              // alert(response.razorpay_order_id);
+              // alert(response.razorpay_signature);
+            },
+            prefill: {
+              name: "mmantratech",
+              email: "mmantratech@gmail.com",
+              contact: "9354536067",
+            },
+          };
+
+        const paymentObject:any = new window.Razorpay(options);
+        paymentObject.open();
+        paymentObject.on("payment.failed", function (response: any) {
+            console.log(response,"res")
+          });
+      };
+      
+      const initializeRazorpay = () => {
+        return new Promise((resolve) => {
+          const script = document.createElement("script");
+          script.src = "https://checkout.razorpay.com/v1/checkout.js";
+          // document.body.appendChild(script);
+
+          script.onload = () => {
+            resolve(true);
+          };
+          script.onerror = () => {
+            resolve(false);
+          };
+
+          document.body.appendChild(script);
+        });
+      }
     return (
         <Box display="flex" flexDirection="column" width="25%">
             <Box display='flex' justifyContent="space-between">
@@ -88,7 +184,7 @@ const Orders = () => {
                     <Text>₹1058.15</Text>
                 </Box>
             </Box>
-            <Button bg="black" color="#FEFAFA" p="4px 4px 4px 4px" cursor="pointer">
+            <Button bg="black" color="#FEFAFA" p="4px 4px 4px 4px" cursor="pointer" onClick={()=>{makePayment()}}>
                 PLACE ORDER
             </Button>
         </Box>

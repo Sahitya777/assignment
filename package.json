@@ -14,8 +14,10 @@
     "@emotion/styled": "^11.11.0",
     "framer-motion": "^10.18.0",
     "next": "14.0.4",
+    "razorpay": "^2.9.2",
     "react": "^18",
-    "react-dom": "^18"
+    "react-dom": "^18",
+    "shortid": "^2.2.16"
   },
   "devDependencies": {
     "@types/node": "^20",
