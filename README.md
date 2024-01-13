@@ -2,7 +2,21 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
 
 ## Getting Started
 
-First, run the development server:
+First clone the github repo:
+
+```bash
+git clone https://github.com/Sahitya777/assignment.git
+```
+
+Install the packages and dependency:
+
+```bash
+yarn install
+# or
+npm install
+```
+
+After that to run the development server:
 
 ```bash
 npm run dev
@@ -16,25 +30,25 @@ bun dev
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-You can start editing the page by modifying `pages/index.tsx`. The page auto-updates as you edit the file.
+Getting Started 
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.ts`.
+Order Page (can add items and view the overall payment summary)
+![image](https://github.com/Sahitya777/assignment/assets/77379621/396a5230-54cb-451d-84ef-c075711c7df2)
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+After Placing order the users proceeds to the payment page
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+![image](https://github.com/Sahitya777/assignment/assets/77379621/7dbe4044-f2a5-4e9a-86a9-43f5a2b5eda9)
 
-## Learn More
+Click on proceed to pay for payment (Razorpay payment gateway opens on clicking the button with the total amount to be paid)
 
-To learn more about Next.js, take a look at the following resources:
+![image](https://github.com/Sahitya777/assignment/assets/77379621/3ebcc53b-5ab1-4ca3-880a-e4909aa91bff)
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+After successfull payment this popup opens 
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+![image](https://github.com/Sahitya777/assignment/assets/77379621/38d9eba3-5894-4ff6-9705-753fc7263e3a)
 
-## Deploy on Vercel
+Redirection to summary page
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+![image](https://github.com/Sahitya777/assignment/assets/77379621/5271b5a6-9797-4c6a-9429-b8b07e658b7f)
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+
