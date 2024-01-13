@@ -25,11 +25,11 @@ const Orders = () => {
         }
     ])
     var prizeSubTotal = orders.reduce((acc, item) => acc + (item.Quantity * item.Prize), 0);
+    const router = useRouter();
+    const { transactionStatus,updateStatus,total,updateTotal } = useDrawContext();
     useEffect(()=>{
         updateTotal(prizeSubTotal+50+12-(prizeSubTotal/10));
     },[])
-    const router = useRouter();
-    const { transactionStatus,updateStatus,total,updateTotal } = useDrawContext();
     return (
         <Box display="flex" flexDirection="column" p="10px">
             <Box display='flex' justifyContent="space-between">
@@ -66,7 +66,7 @@ const Orders = () => {
 
             {orders.map((order, idx: number) => {
                 return (
-                    <Box>
+                    <Box key={idx}>
                         <Box display="flex" justifyContent="space-between">
                             <Box display="flex" flexDirection="column" >
                                 <Box display="flex" gap="8" flexDirection="row">

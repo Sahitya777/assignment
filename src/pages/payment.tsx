@@ -6,7 +6,7 @@ import Image from 'next/image'
 import { useRouter } from 'next/router'
 import { useDrawContext } from '@/context/DrawerContext'
 import Orders from '@/components/Orders'
-const payment = () => {
+const Payment = () => {
   const router = useRouter();
   const {updateStatus,total} =useDrawContext()
   const makePayment = async () => {
@@ -117,4 +117,4 @@ const payment = () => {
   )
 }
 
-export default payment
+export default Payment
