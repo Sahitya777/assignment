@@ -20,7 +20,7 @@ export default function Home() {
         <Script src="https://checkout.razorpay.com/v1/checkout.js"
           />
       </Head>
-      <Box display="flex"flexDirection="column">
+      <Box display="flex" flexDirection="column" alignItems="center" justifyContent="center">
         <DialogueBox/>
         <Orders/>
 

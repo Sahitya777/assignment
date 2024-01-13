@@ -105,3 +105,55 @@ a {
     color-scheme: dark;
   }
 } */
+
+  
+.toggleContainer {
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  width: fit-content;
+  border: 3px solid #E5E5E5;
+  border-radius: 20px;
+  background: #E5E5E5;
+  font-weight: bold;
+  font-size: 14px;
+  color: #343434;
+  cursor: pointer;
+}
+.toggleContainer::before {
+  content: '';
+  position: absolute;
+  width: 50%;
+  height: 100%;
+  left: 0%;
+  border-radius:20px;
+  background: black;
+  transition: all 0.3s;
+}
+.toggleCheckbox:checked + .toggleContainer::before {
+   left: 50%;
+}
+.toggleContainer div {
+  padding: 8px 12px 8px 12px;
+  text-align: center;
+  z-index: 1;
+}
+.toggleCheckbox {
+  display: none;
+}
+.toggleCheckbox:checked + .toggleContainer div:first-child{
+  color: black;
+  transition: color 0.3s;
+}
+.toggleCheckbox:checked + .toggleContainer div:last-child{
+  color: white;
+  transition: color 0.3s;
+}
+.toggleCheckbox + .toggleContainer div:first-child{
+  color: white;
+  transition: color 0.3s;
+}
+.toggleCheckbox + .toggleContainer div:last-child{
+  color: black;
+  transition: color 0.3s;
+}
