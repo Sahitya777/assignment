@@ -28,13 +28,15 @@ const Orders = () => {
 
     const router = useRouter();
     const { isOpen, onOpen, onClose } = useDisclosure();
-    const { transactionStatus, updateStatus, total, updateTotal } = useDrawContext();
+    const { transactionStatus, updateStatus, total, updateTotal, updateSubTotal, subTotal, updateFinalOrder, finalOrder } = useDrawContext();
     const [quantity1, setquantity1] = useState(orders[0].Quantity);
     const [quantity2, setquantity2] = useState(orders[1].Quantity);
     const [quantity3, setquantity3] = useState(orders[2].Quantity);
     useEffect(() => {
-        if(transactionStatus!="success"){
+        if (transactionStatus != "success") {
             updateTotal(prizeSubTotal + 50 + 12 - (prizeSubTotal / 10));
+            updateSubTotal(prizeSubTotal)
+            updateFinalOrder(orders)
         }
     }, [prizeSubTotal])
     return (
@@ -75,14 +77,15 @@ const Orders = () => {
                                     {quantity1}  Margertia A
                                 </Text>
                                 <Box display="flex" gap="1rem">
-                                    <Text cursor="pointer" fontSize="14px" onClick={() => { 
-                                        setquantity1(quantity1+1)
-                                        orders[0].Quantity++ }}>
+                                    <Text cursor="pointer" fontSize="14px" onClick={() => {
+                                        setquantity1(quantity1 + 1)
+                                        orders[0].Quantity++
+                                    }}>
                                         Add +
                                     </Text>
                                     <Text cursor="pointer" fontSize="14px" onClick={() => {
                                         if (orders[0].Quantity > 0) {
-                                            setquantity1(quantity1-1)
+                                            setquantity1(quantity1 - 1)
                                             orders[0].Quantity--
                                         }
                                     }}>
@@ -95,14 +98,15 @@ const Orders = () => {
                                     {quantity2}  Margertia B
                                 </Text>
                                 <Box display="flex" gap="1rem">
-                                    <Text cursor="pointer" fontSize="14px" onClick={() => { 
-                                        setquantity2(quantity2+1)
-                                        orders[1].Quantity++ }}>
+                                    <Text cursor="pointer" fontSize="14px" onClick={() => {
+                                        setquantity2(quantity2 + 1)
+                                        orders[1].Quantity++
+                                    }}>
                                         Add +
                                     </Text>
                                     <Text cursor="pointer" fontSize="14px" onClick={() => {
                                         if (orders[1].Quantity > 0) {
-                                            setquantity2(quantity2-1)
+                                            setquantity2(quantity2 - 1)
                                             orders[1].Quantity--
                                         }
                                     }}>
@@ -115,14 +119,15 @@ const Orders = () => {
                                     {quantity3}  Margertia C
                                 </Text>
                                 <Box display="flex" gap="1rem">
-                                    <Text cursor="pointer" fontSize="14px" onClick={() => { 
-                                        setquantity3(quantity3+1)
-                                        orders[2].Quantity++ }}>
+                                    <Text cursor="pointer" fontSize="14px" onClick={() => {
+                                        setquantity3(quantity3 + 1)
+                                        orders[2].Quantity++
+                                    }}>
                                         Add +
                                     </Text>
                                     <Text cursor="pointer" fontSize="14px" onClick={() => {
                                         if (orders[2].Quantity > 0) {
-                                            setquantity3(quantity3-1)
+                                            setquantity3(quantity3 - 1)
                                             orders[2].Quantity--
                                         }
                                     }}>
@@ -158,45 +163,67 @@ const Orders = () => {
             }
 
 
-            {orders.map((order, idx: number) => {
-                return (
-                    <Box key={idx}>
-                        <Box display="flex" justifyContent="space-between">
-                            <Box display="flex" flexDirection="column" >
-                                <Box display="flex" gap="8" flexDirection="row">
-                                    <Text bg="#E92F48" p="1px 5px 1px 5px" color="white" borderRadius="4px">
-                                        {order.Quantity}
+            {transactionStatus == "success" ? finalOrder.map((order: any, idx: number) => (
+                <Box key={idx}>
+                    <Box display="flex" justifyContent="space-between">
+                        <Box display="flex" flexDirection="column" >
+                            <Box display="flex" gap="8" flexDirection="row">
+                                <Text bg="#E92F48" p="1px 5px 1px 5px" color="white" borderRadius="4px">
+                                    {order.Quantity}
+                                </Text>
+                                <Box display="flex" flexDirection="column" justifyContent="center">
+                                    <Text p="0" m="0">
+                                        {order.Name}
                                     </Text>
-                                    <Box display="flex" flexDirection="column" justifyContent="center">
-                                        <Text p="0" m="0">
-                                            {order.Name}
-                                        </Text>
-                                        <Text p="0" m="0" color="#7E8389">
-                                            {order.Desc}
-                                        </Text>
-                                    </Box>
+                                    <Text p="0" m="0" color="#7E8389">
+                                        {order.Desc}
+                                    </Text>
                                 </Box>
                             </Box>
-                            <Text>
-                                ₹{((order.Prize) * (order.Quantity)).toFixed(2)}
-                            </Text>
                         </Box>
-                        <Box borderBottom="1px solid rgba(126, 131, 137, 0.20)"></Box>
+                        <Text>
+                            ₹{((order.Prize) * (order.Quantity)).toFixed(2)}
+                        </Text>
                     </Box>
-                )
-            })}
+                    <Box borderBottom="1px solid rgba(126, 131, 137, 0.20)"></Box>
+                </Box>
+            )) : orders.map((order, idx: number) => (
+                <Box key={idx}>
+                    <Box display="flex" justifyContent="space-between">
+                        <Box display="flex" flexDirection="column" >
+                            <Box display="flex" gap="8" flexDirection="row">
+                                <Text bg="#E92F48" p="1px 5px 1px 5px" color="white" borderRadius="4px">
+                                    {order.Quantity}
+                                </Text>
+                                <Box display="flex" flexDirection="column" justifyContent="center">
+                                    <Text p="0" m="0">
+                                        {order.Name}
+                                    </Text>
+                                    <Text p="0" m="0" color="#7E8389">
+                                        {order.Desc}
+                                    </Text>
+                                </Box>
+                            </Box>
+                        </Box>
+                        <Text>
+                            ₹{((order.Prize) * (order.Quantity)).toFixed(2)}
+                        </Text>
+                    </Box>
+                    <Box borderBottom="1px solid rgba(126, 131, 137, 0.20)"></Box>
+                </Box>
+            ))}
             <Box display="flex" flexDirection="column">
                 <Text color="#424242" fontWeight="900" fontSize="20px" lineHeight="18px" width="85px" borderBottom="3px solid #E92F48" pb="2px" fontFamily="Mulish">
                     Summary
                 </Text>
                 <Box display="flex" justifyContent="space-between">
                     <Text color="#7E8389">Subtotal</Text>
-                    <Text>₹{prizeSubTotal.toFixed(2)}</Text>
+                    <Text>₹{subTotal.toFixed(2)}</Text>
                 </Box>
                 <Box borderBottom="1px solid rgba(126, 131, 137, 0.20)"></Box>
                 <Box display="flex" justifyContent="space-between">
                     <Text color="#7E8389">Discount</Text>
-                    <Text color="#5A8CD7">- ₹{(prizeSubTotal / 10).toFixed(2)}</Text>
+                    <Text color="#5A8CD7">- ₹{(subTotal / 10).toFixed(2)}</Text>
                 </Box>
                 <Box borderBottom="1px solid rgba(126, 131, 137, 0.20)"></Box>
                 <Box display="flex" justifyContent="space-between">
