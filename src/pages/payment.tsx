@@ -37,7 +37,7 @@ const Payment = () => {
       currency: data.currency,
       amount: data.amount,
       order_id: data.id,
-      description: "Understanding RazorPay Integration",
+      description: "TSX Pizza RazorPay Integration",
       // image: logoBase64,
       handler: async function (response: any) {
         // if (response.length==0) return <Loading/>;
@@ -97,13 +97,13 @@ const Payment = () => {
     });
   }
   return (
-    <Box  display='flex' flexDirection="column" alignItems="center">
+    <Box  display='flex' flexDirection="column" alignItems="center" fontFamily="Mulish">
       <Image
-        src={banner} alt={''}      />
+        src={banner} alt={''}  />
         <Box position="absolute" bg="white" top="5%" borderRightRadius="6px" borderLeftRadius="6px">
           <DialogueBox />
         </Box>
-      <Button bg="black" color="#FEFAFA" p="4px 4px 4px 4px" width="400px" mt="7rem" borderRadius="8px" cursor="pointer" onClick={() => { makePayment() }}>
+      <Button fontFamily="Mulish" bg="black" color="#FEFAFA" p="4px 4px 4px 4px" width="400px" mt="7rem" borderRadius="8px" cursor="pointer" onClick={() => { makePayment() }}>
         PROCEED TO PAY
       </Button>
     </Box>

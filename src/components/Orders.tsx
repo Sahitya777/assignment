@@ -19,7 +19,7 @@ const Orders = () => {
         },
         {
             "Name": "Margarita C",
-            "Desc": "smoked salmon over rice with extra sauce to check if this line works",
+            "Desc": "smoked salmon over rice with extra sauce and spicing toppings on top",
             "Quantity": 3,
             "Prize": 412
         }
@@ -32,13 +32,14 @@ const Orders = () => {
     const [quantity1, setquantity1] = useState(orders[0].Quantity);
     const [quantity2, setquantity2] = useState(orders[1].Quantity);
     const [quantity3, setquantity3] = useState(orders[2].Quantity);
+    const [refersh, setrefersh] = useState(false)
     useEffect(() => {
         if (transactionStatus != "success") {
             updateTotal(prizeSubTotal + 50 + 12 - (prizeSubTotal / 10));
             updateSubTotal(prizeSubTotal)
             updateFinalOrder(orders)
         }
-    }, [prizeSubTotal])
+    }, [prizeSubTotal,refersh])
     return (
         <Box display="flex" flexDirection="column" p="10px">
             <Box display='flex' justifyContent="space-between">
@@ -154,7 +155,9 @@ const Orders = () => {
                         Total : ₹{total.toFixed(2)}
                     </Text>
                     <Box width="100%" display="flex" justifyContent="flex-end">
-                        <Button bg="#C4C4C4" boxShadow="0px 4px 4px 0px rgba(0, 0, 0, 0.25)" border="1px solid #C4C4C4" width="100px" color="#000" fontWeight="700" cursor="pointer" onClick={() => { updateStatus(null) }}>
+                        <Button bg="#C4C4C4" boxShadow="0px 4px 4px 0px rgba(0, 0, 0, 0.25)" border="1px solid #C4C4C4" width="100px" color="#000" fontWeight="700" cursor="pointer" onClick={() => {
+                            setrefersh(true)
+                            updateStatus(null) }}>
                             Back
                         </Button>
                     </Box>
@@ -213,7 +216,7 @@ const Orders = () => {
                 </Box>
             ))}
             <Box display="flex" flexDirection="column">
-                <Text color="#424242" fontWeight="900" fontSize="20px" lineHeight="18px" width="85px" borderBottom="3px solid #E92F48" pb="2px" fontFamily="Mulish">
+                <Text color="#424242" fontWeight="900" fontSize="20px" lineHeight="18px" width="85px" borderBottom="3px solid #E92F48" pb="3px" fontFamily="Mulish">
                     Summary
                 </Text>
                 <Box display="flex" justifyContent="space-between">
@@ -242,7 +245,8 @@ const Orders = () => {
                 </Box>
             </Box>
             {transactionStatus != "success" &&
-                <Button bg="black" borderRadius="8px" color="#FEFAFA" p="6px 4px 6px 4px" mt="1rem" cursor="pointer" onClick={() => { router.push("/payment") }}>
+                <Button bg="black" borderRadius="8px" color="#FEFAFA" p="6px 4px 6px 4px" mt="1rem" cursor="pointer" onClick={() => { 
+                    router.push("/payment") }}>
                     PLACE ORDER
                 </Button>
             }
