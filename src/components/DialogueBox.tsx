@@ -3,7 +3,7 @@ import React from 'react'
 
 const DialogueBox = () => {
     return (
-        <Box display="flex" flexDirection="column" width="300px" alignItems="center" justifyContent="center" boxShadow="0px 4px 10px rgba(0, 0, 0, 0.1)">
+        <Box display="flex" flexDirection="column" width="300px" alignItems="center" justifyContent="center" boxShadow="0px 4px 10px rgba(0, 0, 0, 0.1)" >
             <Text color="#000" fontSize="16px" fontWeight="800" fontFamily="Mulish">
                 TSX PIZZERIAS
             </Text>

@@ -1,22 +1,22 @@
 import DialogueBox from '@/components/DialogueBox'
 import { Box, Button, useRadio } from '@chakra-ui/react'
-import React, { useEffect } from 'react'
+import React from 'react'
 import banner from "../assets/Banner.png"
 import Image from 'next/image'
 import { useRouter } from 'next/router'
 import { useDrawContext } from '@/context/DrawerContext'
-import Orders from '@/components/Orders'
+
 const Payment = () => {
   const router = useRouter();
   const {updateStatus,total} =useDrawContext()
   const makePayment = async () => {
-    //console.log("here...");
+
     const res = await initializeRazorpay();
     if (!res) {
       alert("Razorpay SDK Failed to load");
       return;
     }
-    // Make API call to the serverless API
+
     const data = await fetch("/api/razorpay",
       {
         method: "POST",
@@ -61,15 +61,7 @@ const Payment = () => {
         if (res?.message == "success") {
           updateStatus('success')
           router.push('/')
-          console.log("redirected.......")
-          // router.push("/paymentsuccess?paymentid="+response.razorpay_payment_id)
-
         }
-
-        // Validate payment at server - using webhooks is a better idea.
-        // alert(response.razorpay_payment_id);
-        // alert(response.razorpay_order_id);
-        // alert(response.razorpay_signature);
       },
       prefill: {
         name: "TSX Pizzerias",
@@ -106,11 +98,12 @@ const Payment = () => {
   }
   return (
     <Box  display='flex' flexDirection="column" alignItems="center">
-      <Box bgImage="url('/assets/Banner.png')" bgPosition="center"
-        bgRepeat="no-repeat">
-      </Box>
-        <DialogueBox />
-      <Button bg="black" color="#FEFAFA" p="4px 4px 4px 4px" width="400px" mt="5rem" borderRadius="8px" cursor="pointer" onClick={() => { makePayment() }}>
+      <Image
+        src={banner} alt={''}      />
+        <Box position="absolute" bg="white" top="5%" borderRightRadius="6px" borderLeftRadius="6px">
+          <DialogueBox />
+        </Box>
+      <Button bg="black" color="#FEFAFA" p="4px 4px 4px 4px" width="400px" mt="7rem" borderRadius="8px" cursor="pointer" onClick={() => { makePayment() }}>
         PROCEED TO PAY
       </Button>
     </Box>
